@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "yatube-project"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Andrew Rozhnev <foo@bar.com>"]
 readme = "README.md"
