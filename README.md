@@ -5,7 +5,7 @@
 
 YaTube is a social platform where you can author your own blog, share your minds, and interact with other authors.
 
-YaTube created as part of the **Yandex.Practicum** training program.
+YaTube created as part of the **Yandex.Practicum** course program.
 
 ## Tech Stack
 
@@ -16,6 +16,4 @@ YaTube created as part of the **Yandex.Practicum** training program.
 
 ## Authors
 
-Andrew Rozhnev
-Yandex.Practicum Team
-
+Andrew Rozhnev, Yandex.Practicum Team

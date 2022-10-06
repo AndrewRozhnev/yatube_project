@@ -38,7 +38,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -64,15 +63,19 @@ ROOT_URLCONF = 'yatube.urls'
 
 TEMPLATES = [
     {
-        "BACKEND": "django_jinja.backend.Jinja2",
-        "DIRS": [],
-        "APP_DIRS": True,
-        "OPTIONS": {}
+        'BACKEND': 'django_jinja.backend.Jinja2',
+        'DIRS': [BASE_DIR('templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            # Match the template names ending in .html but not the ones in the admin folder.
+            'match_extension': '.html',  # django-jinja default is '.jinja'
+            'match_regex': r'^(?!admin/).*',
+        }
     },
     {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": False,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -131,6 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = (BASE_DIR('static'),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
