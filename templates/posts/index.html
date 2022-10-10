@@ -5,5 +5,17 @@
 {% endblock %}
 
 {% block content %}
-  {{ content }}
+  <h1 class="mb-4">Последние обновления на сайте</h1>
+  {% for post in posts %}
+    <ul>
+      <li>Автор: {{ post.author.get_full_name() }}</li>
+      <li>Дата публикации: {{ post.pub_date|date('d E Y') }}</li>
+    </ul>
+    <p>{{ post.text }}</p>
+    <a href="{{ url('posts:group_list', group_id=post.group.slug) }}">Все записи группы: {{ post.group }}</a>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+
 {% endblock %}
