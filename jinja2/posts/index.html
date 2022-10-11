@@ -12,7 +12,7 @@
       <li>Дата публикации: {{ post.pub_date|date('d E Y') }}</li>
     </ul>
     <p>{{ post.text }}</p>
-    <a href="{{ url('posts:group_list', group_id=post.group.slug) }}">Все записи группы: {{ post.group }}</a>
+    <a href="{{ url('posts:group_list', slug=post.group.slug) }}">Все записи группы: {{ post.group }}</a>
     {% if not loop.last %}
       <hr>
     {% endif %}

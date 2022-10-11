@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_jinja',
+    'django_extensions',
     'posts.apps.PostsConfig',
 ]
 
@@ -64,17 +65,17 @@ ROOT_URLCONF = 'yatube.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django_jinja.backend.Jinja2',
-        'DIRS': [BASE_DIR('templates')],
+        'DIRS': [BASE_DIR('jinja2')],
         'APP_DIRS': True,
         'OPTIONS': {
-            # Match the template names ending in .html but not the ones in the admin folder.
-            'match_extension': '.html',  # django-jinja default is '.jinja'
-            'match_regex': r'^(?!admin/).*',
+            # Match the templates at /jinja2/*.html`, leaving /templates/ for DTL
+            'match_extension': '.html',
+            'app_dirname': 'jinja2',
         }
     },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR('templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
