@@ -15,6 +15,10 @@ django-jinja = "2.10.2"
 psycopg2-binary = "2.9.3"
 
 
+[tool.poetry.group.dev.dependencies]
+django-extensions = "^3.2.1"
+ipython = "^8.5.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
