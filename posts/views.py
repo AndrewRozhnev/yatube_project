@@ -13,10 +13,10 @@ def index(request):
     return render(request, template, context)
 
 
-def group_list(request, group_id: str):
+def group_list(request, slug: str):
     template = 'posts/group_list.html'
 
-    group = get_object_or_404(Group, slug=group_id)
+    group = get_object_or_404(Group, slug=slug)
     group_posts = Post.objects.filter(group=group).order_by('-pub_date')[:10]
     context = {
         'group': group,
