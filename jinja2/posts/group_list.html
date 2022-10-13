@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Записи сообщества {{ group }}
+  {{ group }} group posts
 {% endblock %}
 
 {% block content %}
   <h1 class="mb-4">{{ group }}</h1>
   {% for post in group_posts %}
     <ul>
-      <li>Автор: {{ post.author.get_full_name() }}</li>
-      <li>Дата публикации: {{ post.pub_date|date('d E Y') }}</li>
+      <li>Author: {{ post.author.get_full_name() }}</li>
+      <li>Publication date: {{ post.pub_date|date('d E Y') }}</li>
     </ul>
     <p>{{ post.text }}</p>
     {% if not loop.last %}

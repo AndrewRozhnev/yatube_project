@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Последние обновления на сайте
+  Latest updates on YaTube
 {% endblock %}
 
 {% block content %}
-  <h1 class="mb-4">Последние обновления на сайте</h1>
+  <h1 class="mb-4">Latest updates on YaTube</h1>
   {% for post in posts %}
     <ul>
-      <li>Автор: {{ post.author.get_full_name() }}</li>
-      <li>Дата публикации: {{ post.pub_date|date('d E Y') }}</li>
+      <li>Author: {{ post.author.get_full_name() }}</li>
+      <li>Publication date: {{ post.pub_date|date('d E Y') }}</li>
     </ul>
     <p>{{ post.text }}</p>
-    <a href="{{ url('posts:group_list', slug=post.group.slug) }}">Все записи группы: {{ post.group }}</a>
+    <a href="{{ url('posts:group_list', slug=post.group.slug) }}">Other group posts: {{ post.group }}</a>
     {% if not loop.last %}
       <hr>
     {% endif %}
