@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_jinja',
     'django_extensions',
+    'core.apps.CoreConfig',
     'posts.apps.PostsConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
