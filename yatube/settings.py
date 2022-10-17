@@ -45,11 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_jinja',
-    'django_extensions',
     'core.apps.CoreConfig',
     'posts.apps.PostsConfig',
     'users.apps.UsersConfig',
+    'django_jinja',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'posts:index'
 
 
 # Internationalization

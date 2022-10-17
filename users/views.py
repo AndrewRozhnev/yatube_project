@@ -6,5 +6,5 @@ from .form import SignUpForm
 
 class SignUp(CreateView):
     form_class = SignUpForm
-    template_name = 'users/sign_up.html'
     success_url = reverse_lazy('posts:index')
+    template_name = 'users/sign_up.html'

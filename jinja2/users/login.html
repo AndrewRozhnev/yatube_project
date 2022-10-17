@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% set title = 'Log in' %}
+
+{% block title %}
+  {{ title }} | YaTube
+{% endblock %}
+
+{% block content %}
+  {% set card_header_text = title %}
+  {% set form_action_url = 'users:login' %}
+  {% set button_submit_text = title %}
+  {% set pass_reset_url = 'users:pass_reset_form' %}
+
+  {% include 'users/includes/form_template.html' %}
+{% endblock %}
