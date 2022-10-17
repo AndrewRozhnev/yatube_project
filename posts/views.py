@@ -6,9 +6,10 @@ from .models import Group, Post
 def index(request):
     template = 'posts/index.html'
 
-    posts = Post.objects.order_by('-pub_date')[:10]
+    last10_posts = Post.objects.order_by('-pub_date')[:10]
     context = {
-        'posts': posts,
+        'title': 'Latest updates',
+        'last10_posts': last10_posts,
     }
     return render(request, template, context)
 

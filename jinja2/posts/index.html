@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Latest updates on YaTube
+  {{ title }} | YaTube
 {% endblock %}
 
 {% block content %}
-  <h1 class="mb-4">Latest updates on YaTube</h1>
-  {% for post in posts %}
-    <ul>
-      <li>Author: {{ post.author.get_full_name() }}</li>
-      <li>Publication date: {{ post.pub_date|date('d E Y') }}</li>
-    </ul>
-    <p>{{ post.text }}</p>
-    <a href="{{ url('posts:group_list', slug=post.group.slug) }}">Other group posts: {{ post.group }}</a>
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
-  {% endfor %}
-
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col p-5">
+          <h1 class="mb-5">{{ title }}</h1>
+          {% for post in last10_posts %}
+            <ul>
+              <li>Author: {{ post.author.get_full_name() }}</li>
+              <li>Publication date: {{ post.pub_date|date('d E Y') }}</li>
+            </ul>
+            <p>{{ post.text }}</p>
+            <a href="{{ url('posts:group_list', slug=post.group.slug) }}" class="text-decoration-none">
+              Other posts: {{ post.group }}
+            </a>
+            {% if not loop.last %}
+              <hr>
+            {% endif %}
+          {% endfor %}
+        </div> <!-- col -->
+      </div> <!-- row -->
+    </div> <!-- container -->
+  </main>
 {% endblock %}

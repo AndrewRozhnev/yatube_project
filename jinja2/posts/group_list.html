@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  {{ group }} group posts
+  {{ group }} | YaTube
 {% endblock %}
 
 {% block content %}
-  <h1 class="mb-4">{{ group }}</h1>
-  {% for post in group_posts %}
-    <ul>
-      <li>Author: {{ post.author.get_full_name() }}</li>
-      <li>Publication date: {{ post.pub_date|date('d E Y') }}</li>
-    </ul>
-    <p>{{ post.text }}</p>
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
-  {% endfor %}
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col p-5">
+          <h1 class="mb-5">{{ group }}</h1>
+          {% for post in group_posts %}
+            <ul>
+              <li>Author: {{ post.author.get_full_name() }}</li>
+              <li>Publication date: {{ post.pub_date|date('d E Y') }}</li>
+            </ul>
+            <p>{{ post.text }}</p>
+            {% if not loop.last %}
+              <hr>
+            {% endif %}
+          {% endfor %}
+        </div> <!-- col -->
+      </div> <!-- row -->
+    </div> <!-- container -->
+  </main>
 {% endblock %}
