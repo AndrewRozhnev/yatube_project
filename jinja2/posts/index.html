@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  {{ title }} | YaTube
+  Latest updates | YaTube
 {% endblock %}
 
 {% block content %}
@@ -9,8 +9,8 @@
     <div class="container">
       <div class="row">
         <div class="col p-5">
-          <h1 class="mb-5">{{ title }}</h1>
-          {% for post in last10_posts %}
+          <h1 class="mb-5">Latest updates</h1>
+          {% for post in current_page_posts %}
             <ul>
               <li>Author: {{ post.author.get_full_name() }}</li>
               <li>Publication date: {{ post.pub_date|date('d E Y') }}</li>
@@ -23,6 +23,8 @@
               <hr>
             {% endif %}
           {% endfor %}
+
+          {% include 'posts/includes/paginator.html' %}
         </div> <!-- col -->
       </div> <!-- row -->
     </div> <!-- container -->
