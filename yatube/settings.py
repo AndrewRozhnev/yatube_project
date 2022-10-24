@@ -124,6 +124,11 @@ LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'posts:index'
 
 
+# For Email testing purpose
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR('sent_emails')
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
