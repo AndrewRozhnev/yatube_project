@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'posts.apps.PostsConfig',
     'users.apps.UsersConfig',
+    'about.apps.AboutConfig',
     'django_jinja',
     'django_extensions',
 ]
