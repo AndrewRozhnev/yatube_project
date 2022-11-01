@@ -1,66 +1,63 @@
-<main>
-  <div class="container py-5">
-    <div class="row justify-content-center">
-      <div class="col-md-8 p-5">
-        <div class="card">
-          <div class="card-header py-3">
-            <span class="h4">{{ card_header_text }}</span>
-          </div>
-          <div class="card-body">
+<div class="row justify-content-center">
+  <div class="col-md-8 p-5">
+    <div class="card">
+      <div class="card-header py-3">
+        <span class="h4">{{ card_header_text }}</span>
+      </div>
+      <div class="card-body">
 
-            {% if form.errors %}
-              {% for field in form %}
-                {% for error in field.errors %}
-                  <div class="alert alert-danger">
-                    {{ error|escape }}
-                  </div>
-                {% endfor %}
-              {% endfor %}
-              {% for error in form.non_field_errors() %}
-                <div class="alert alert-danger">
-                  {{ error|escape }}
-                </div>
-              {% endfor %}
-            {% endif %}
-
-            {% if validlink %}
-              <form method="post" action="{{ url(form_action_url, uidb64=view.kwargs['uidb64'], token=view.kwargs['token']) }}">
-            {% else %}
-              <form method="post" action="{{ url(form_action_url) }}">
-            {% endif %}
-            {% csrf_token %}
-
-            {% for field in form %}
-              <div class="form-group row my-3 p-3">
-                <label for="{{ field.id_for_label }}" class="mb-1 px-0">
-                  {{ field.label }}
-                  {% if field.field.required %}
-                    <span class="required text-danger">*</span>
-                  {% endif %}
-                </label>
-                {{ field|add_class('form-control') }}
-                {% if field.help_text %}
-                  <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
-                    {{ field.help_text|safe }}
-                  </small>
-                {% endif %}
+        {% if form.errors %}
+          {% for field in form %}
+            {% for error in field.errors %}
+              <div class="alert alert-danger">
+                {{ error|escape }}
               </div>
             {% endfor %}
-
-            <div class="mb-3 d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary">
-                {{ button_submit_text }}
-              </button>
-              {% if pass_reset_url %}
-                <a href="{{ url(pass_reset_url) }}" class="btn btn-link text-decoration-none">
-                  Forgot your password?
-                </a>
-              {% endif %}
+          {% endfor %}
+          {% for error in form.non_field_errors() %}
+            <div class="alert alert-danger">
+              {{ error|escape }}
             </div>
-            </form>
-          </div> <!-- card-body -->
-        </div> <!-- card -->
-      </div> <!-- col -->
-    </div> <!-- row -->
-  </div> <!-- container -->
-</main>
+          {% endfor %}
+        {% endif %}
+
+        {% if validlink %}
+          <form method="post"
+                action="{{ url(form_action_url, uidb64=view.kwargs['uidb64'], token=view.kwargs['token']) }}">
+        {% else %}
+          <form method="post" action="{{ url(form_action_url) }}">
+        {% endif %}
+        {% csrf_token %}
+
+        {% for field in form %}
+          <div class="form-group row my-3 p-3">
+            <label for="{{ field.id_for_label }}" class="mb-1 px-0">
+              {{ field.label }}
+              {% if field.field.required %}
+                <span class="required text-danger">*</span>
+              {% endif %}
+            </label>
+            {{ field|add_class('form-control') }}
+            {% if field.help_text %}
+              <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
+                {{ field.help_text|safe }}
+              </small>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <div class="mb-3 d-flex flex-column flex-sm-row justify-content-center">
+          <button type="submit" class="btn btn-primary">
+            {{ button_submit_text }}
+          </button>
+          {% if pass_reset_url %}
+            <a href="{{ url(pass_reset_url) }}" class="btn btn-link text-decoration-none">
+              Forgot your password?
+            </a>
+          {% endif %}
+        </div>
+        </form>
+      </div> <!-- card-body -->
+    </div> <!-- card -->
+  </div> <!-- col -->
+</div> <!-- row -->

@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView
 from .form import SignUpForm
 
 
-class SignUp(CreateView):
+class SignUpView(CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy('posts:index')
     template_name = 'users/sign_up.html'
