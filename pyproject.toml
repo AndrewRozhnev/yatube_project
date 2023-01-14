@@ -2,13 +2,13 @@
 name = "yatube-project"
 version = "0.1.2"
 description = ""
-authors = ["Andrew Rozhnev <foo@bar.com>"]
+authors = ["Andrew Rozhnev <andrewrozhnev@gmail.com>"]
 readme = "README.md"
 packages = [{include = "yatube_project"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Django = "4.1.3"
+Django = "^4.1.3"
 Jinja2 = "3.1.2"
 django-environ = "0.9.0"
 django-jinja = "2.10.2"

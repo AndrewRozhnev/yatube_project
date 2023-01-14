@@ -9,10 +9,10 @@ YaTube created as part of the **Yandex.Practicum** course program.
 
 ## Tech Stack
 
-- Python 3.10.6
-- Django 4.1.1
-- PostgreSQL 14.5
-- Bootstrap 5.2.2
+- Python 3.11.1
+- Django 4.1.5
+- PostgreSQL 15.1
+- Bootstrap 5.2.3
 
 ## Authors
 
