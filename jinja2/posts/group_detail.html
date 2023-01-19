@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Latest posts | YaTube
+  {{ group }} | YaTube
 {% endblock %}
 
 {% block content %}
   <div class="row">
     <div class="col">
-      <h1 class="mb-5">Latest posts</h1>
+      <h1 class="mb-5">{{ group }}</h1>
       {% for post in current_page_posts %}
         <article>
           <div class="mb-3">
@@ -28,14 +28,6 @@
           </div>
 
           <div class="small text-end text-muted">
-            {% if post.group %}
-              <div>
-                <span>Group:</span>
-                <a href="{{ url('posts:group_detail', slug=post.group.slug) }}" class="text-decoration-none text-primary">
-                  {{ post.group }}
-                </a>
-              </div>
-            {% endif %}
             <p class="mb-0">{{ post.pub_date|date('H:m | d M Y') }}</p>
           </div>
         </article>

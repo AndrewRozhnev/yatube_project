@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <div class="col-md-8 p-5">
+  <div class="col-md-8">
     <div class="card">
       <div class="card-header py-3">
         <span class="h4">{{ card_header_text }}</span>
@@ -47,7 +47,7 @@
         {% endfor %}
 
         <div class="mb-3 d-flex flex-column flex-sm-row justify-content-center">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary mb-1 mb-md-0">
             {{ button_submit_text }}
           </button>
           {% if pass_reset_url %}

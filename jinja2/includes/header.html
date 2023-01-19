@@ -4,8 +4,15 @@
       <a class="navbar-brand" href="{{ url('posts:index') }}">
         <img src="{{ static('img/logo.png') }}" width="30" height="30" class="d-inline-block align-top"
              alt="YaTube logo">
-        <span style="color:red">Ya</span>Tube</a>
+        <span style="color:red">Ya</span>Tube
       </a>
+      <span class="text-white">
+        {% if user.is_authenticated %}
+          Current user: <span class="text-danger">{{ user|title }}</span>
+        {% else %}
+          Current user: <span class="text-danger">{{ user }}</span>
+        {% endif %}
+      </span>
     </div>
   </nav>
 </header>
