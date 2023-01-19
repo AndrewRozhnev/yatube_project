@@ -11,7 +11,7 @@
       {% for post in current_page_posts %}
         <article>
           <div class="mb-3">
-            <span class="h5">Post from:</span>
+            <span class="h5">Author:</span>
             <a href="{{ url('posts:user_profile', username=post.author) }}" class="text-decoration-none h5">
               {{ post.author.get_full_name() }}
             </a>
