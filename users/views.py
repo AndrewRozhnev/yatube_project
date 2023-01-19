@@ -1,7 +1,6 @@
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
 
 from .form import SignUpForm
@@ -13,6 +12,5 @@ class SignUpView(CreateView):
     template_name = 'users/sign_up.html'
 
 
-@method_decorator(login_required, name='dispatch')
-class ProtectedLogoutView(auth_views.LogoutView):
-    pass
+class ProtectedLogoutView(LoginRequiredMixin, auth_views.LogoutView):
+    ...
