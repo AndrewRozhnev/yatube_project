@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Post: {{ post.text[:10] }}... | YaTube
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <aside class="col-12 col-md-3 mb-5 mb-md-0">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item px-0 pt-0">
+          Author:
+          <a href="{{ url('posts:user_profile', username=user) }}" class="text-decoration-none">
+            {{ post.author.get_full_name() }}
+          </a>
+        </li>
+
+        {% if post.group %}
+          <li class="list-group-item px-0">
+            Group:
+            <a href="{{ url('posts:group_detail', slug=post.group.slug) }}" class="text-decoration-none">
+              {{ post.group }}
+            </a>
+          </li>
+        {% endif %}
+
+        <li class="list-group-item px-0 pb-0">
+          Publication: {{ post.pub_date|date('d M Y') }} at {{ post.pub_date|date('H:m') }}
+        </li>
+      </ul>
+    </aside>
+
+    <article class="col-12 col-md-9">
+      <p class="mb-0">{{ post.text }}</p>
+    </article>
+  </div> <!-- row -->
+{% endblock %}

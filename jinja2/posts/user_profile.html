@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  User profile: {{ current_user.get_full_name() }} | YaTube
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col">
+      <h1>Profile: {{ current_user.get_full_name() }}</h1>
+      <h3 class="mb-5">Total posts: {{ current_user.posts.count() }}</h3>
+
+      {% for post in current_page_posts %}
+        <article>
+          <div>
+            <p class="ps-3">
+              {{ post.text }}
+              <br>
+              <a href="{{ url('posts:post_detail', post_id=post.id) }}" class="text-decoration-none small">
+                About the post...
+              </a>
+            </p>
+          </div>
+
+          <div class="small text-end text-muted">
+            {% if post.group %}
+              <div>
+                <span>Group:</span>
+                <a href="{{ url('posts:group_detail', slug=post.group.slug) }}" class="text-decoration-none text-primary">
+                  {{ post.group }}
+                </a>
+              </div>
+            {% endif %}
+            <p class="mb-0">{{ post.pub_date|date('H:m | d M Y') }}</p>
+          </div>
+        </article>
+
+        {% if not loop.last %}
+          <hr class="text-muted">
+        {% endif %}
+      {% endfor %}
+
+      {% include 'posts/includes/paginator.html' %}
+    </div> <!-- col -->
+  </div> <!-- row -->
+{% endblock %}
