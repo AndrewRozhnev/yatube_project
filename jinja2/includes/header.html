@@ -1,18 +1,64 @@
 <header>
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container py-2">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark py-3">
+    <div class="container-fluid">
       <a class="navbar-brand" href="{{ url('posts:index') }}">
-        <img src="{{ static('img/logo.png') }}" width="30" height="30" class="d-inline-block align-top"
-             alt="YaTube logo">
+        <img src="{{ static('img/logo.png') }}"
+             width="30"
+             height="30"
+             alt="YaTube logo"
+             class="d-inline-block align-top"
+        >
         <span style="color:red">Ya</span>Tube
       </a>
-      <span class="text-white">
-        {% if user.is_authenticated %}
-          Current user: <span class="text-danger">{{ user|title }}</span>
-        {% else %}
-          Current user: <span class="text-danger">{{ user }}</span>
-        {% endif %}
-      </span>
-    </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        {% with view_name = request.resolver_match.view_name %}
+          <ul class="navbar-nav pt-2 pt-md-0">
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="">New post</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if view_name == 'posts:user_profile' %}active{% endif %}"
+                   {% if view_name == 'posts:user_profile' %}aria-current="page"{% endif %}
+                   href="{{ url('posts:user_profile', username=user) }}">
+                  Current user: {{ user.get_full_name()|title }}
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link {% if view_name == 'users:pass_change_form' %}active{% endif %}"
+                  {% if view_name == 'users:pass_change_form' %}aria-current="page"{% endif %}
+                  href="{{ url('users:pass_change_form') }}">
+                  Change password
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url('users:logout') }}">Logout</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link {% if view_name == 'users:login' %}active{% endif %}"
+                  {% if view_name == 'users:login' %}aria-current="page"{% endif %}
+                   href="{{ url('users:login') }}">
+                  Log in
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if view_name == 'users:signup' %}active{% endif %}"
+                  {% if view_name == 'users:signup' %}aria-current="page"{% endif %}
+                   href="{{ url('users:signup') }}">
+                  Sign in
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        {% endwith %}
+      </div> <!-- navbar-collapse -->
+    </div> <!-- container-fluid -->
   </nav>
 </header>
