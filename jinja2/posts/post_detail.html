@@ -10,7 +10,7 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item px-0 pt-0">
           Author:
-          <a href="{{ url('posts:user_profile', username=user) }}" class="text-decoration-none">
+          <a href="{{ url('posts:user_profile', username=post.author) }}" class="text-decoration-none">
             {{ post.author.get_full_name() }}
           </a>
         </li>
