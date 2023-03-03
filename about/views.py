@@ -6,4 +6,4 @@ class AboutAuthorView(TemplateView):
 
 
 class AboutTechView(TemplateView):
-    template_name = 'about/tech.html'
+    template_name = 'about/skills.html'

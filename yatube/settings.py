@@ -18,11 +18,12 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
-# Build paths inside the project like this: BASE_DIR('subdir').
+# Build paths inside the project like this: BASE_DIR('subdir')
 BASE_DIR = environ.Path(__file__) - 2
 
 # Take environment variables from .env file
-# Overwrite=True means variables in .env file has higher precedence than an existing set environment variables
+# Overwrite=True means variables in .env file has higher precedence
+# than an existing set environment variables
 environ.Env.read_env(BASE_DIR('.env'), overwrite=True)
 
 # Quick-start development settings - unsuitable for production
