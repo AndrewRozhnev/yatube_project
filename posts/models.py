@@ -12,16 +12,19 @@ class Group(models.Model):
 
 
 class Post(models.Model):
-    text = models.TextField()
+    text = models.TextField(help_text='New message text')
     pub_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(get_user_model(),
                                on_delete=models.CASCADE,
                                related_name='posts')
-    group = models.ForeignKey(Group,
-                              on_delete=models.CASCADE,
-                              related_name='posts',
-                              blank=True,
-                              null=True)
+    group = models.ForeignKey(
+        Group,
+        on_delete=models.CASCADE,
+        related_name='posts',
+        blank=True,
+        null=True,
+        help_text='Group to which the post belongs',
+    )
 
     def __str__(self):
         return self.text

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% set title = 'Edit post' %}
+
+{% block title %}
+  {{ title }} | YaTube
+{% endblock %}
+
+{% block content %}
+  {% set card_header_text = title %}
+  {% set form_action_url = 'posts:post_edit' %}
+  {% set button_submit_text = 'Save' %}
+
+  {% include 'posts/includes/post_form_template.html' %}
+{% endblock %}

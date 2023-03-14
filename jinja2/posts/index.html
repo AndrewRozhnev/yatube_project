@@ -20,22 +20,36 @@
           <div>
             <p class="ps-3">
               {{ post.text }}
-              <br>
-              <a href="{{ url('posts:post_detail', post_id=post.id) }}" class="text-decoration-none small">
-                About the post...
-              </a>
             </p>
+
+            <div class="d-flex gap-3">
+              {% if post.group %}
+                <div>
+                  <span>Group:</span>
+                  <a href="{{ url('posts:group_detail', slug=post.group.slug) }}"
+                     class="text-decoration-none">
+                    {{ post.group }}
+                  </a>
+                </div>
+              {% endif %}
+
+              <div>
+                <a href="{{ url('posts:post_detail', post_id=post.id) }}" class="text-decoration-none">
+                  About
+                </a>
+              </div>
+
+              {% if post.author == user %}
+                <div>
+                  <a href="{{ url('posts:post_edit', post_id=post.id) }}" class="text-decoration-none">
+                    Edit
+                  </a>
+                </div>
+              {% endif %}
+            </div>
           </div>
 
           <div class="small text-end text-muted">
-            {% if post.group %}
-              <div>
-                <span>Group:</span>
-                <a href="{{ url('posts:group_detail', slug=post.group.slug) }}" class="text-decoration-none text-primary">
-                  {{ post.group }}
-                </a>
-              </div>
-            {% endif %}
             <p class="mb-0">{{ post.pub_date|date('H:m | d M Y') }}</p>
           </div>
         </article>

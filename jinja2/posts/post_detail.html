@@ -31,7 +31,13 @@
     </aside>
 
     <article class="col-12 col-md-9">
-      <p class="mb-0">{{ post.text }}</p>
+      <p class="mb-1">{{ post.text }}</p>
+
+      {% if post.author == user %}
+        <a href="{{ url('posts:post_edit', post_id=post.id) }}" class="text-decoration-none">
+          Edit this post
+        </a>
+      {% endif %}
     </article>
   </div> <!-- row -->
 {% endblock %}
