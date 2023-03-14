@@ -1,4 +1,4 @@
-{% if current_page_posts.has_next() %}
+{% if current_page_posts.has_next() or current_page_posts.has_previous() %}
   <div class="d-flex justify-content-center">
     {% if current_page_posts.has_other_pages %}
       <nav aria-label="Page navigation" class="pt-5">
