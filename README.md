@@ -11,7 +11,7 @@ YaTube created as part of the **Yandex.Practicum** course program.
 
 - Python 3.11
 - Django 4.2
-- PostgreSQL 15
+- PostgreSQL 15 (Docker)
 - Bootstrap 5.2
 
 ## Authors
