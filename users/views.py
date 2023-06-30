@@ -13,4 +13,4 @@ class SignUpView(CreateView):
 
 
 class ProtectedLogoutView(LoginRequiredMixin, auth_views.LogoutView):
-    ...
+    pass

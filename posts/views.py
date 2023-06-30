@@ -1,114 +1,73 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django_jinja.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from .forms import PostForm
 from .models import Group, Post
 
-
-def index(request):
-    posts = Post.objects.order_by('-pub_date')
-
-    paginator = Paginator(posts, 5)
-    page_number = request.GET.get('page')
-    current_page_posts = paginator.get_page(page_number)
-
-    context = {
-        'current_page_posts': current_page_posts,
-    }
-    template = 'posts/index.html'
-
-    return render(request, template, context)
+User = get_user_model()
 
 
-def group_detail(request, slug: str):
-    group = get_object_or_404(Group, slug=slug)
-    group_posts = Post.objects.filter(group=group).order_by('-pub_date')
-
-    paginator = Paginator(group_posts, 5)
-    page_number = request.GET.get('page')
-    current_page_posts = paginator.get_page(page_number)
-
-    context = {
-        'group': group,
-        'current_page_posts': current_page_posts,
-    }
-    template = 'posts/group_detail.html'
-
-    return render(request, template, context)
+class PostListView(ListView):
+    model = Post
+    paginate_by = 5
+    template_name = 'posts/index.html'
 
 
-@login_required
-def user_profile(request, username: str):
-    current_user = get_object_or_404(get_user_model(), username=username)
-    user_posts = Post.objects.filter(author=current_user).order_by('-pub_date')
+class GroupDetailView(ListView):
+    model = Post
+    paginate_by = 5
+    template_name = 'posts/group_detail.html'
 
-    paginator = Paginator(user_posts, 5)
-    page_number = request.GET.get('page')
-    current_page_posts = paginator.get_page(page_number)
-
-    context = {
-        'current_user': current_user,
-        'current_page_posts': current_page_posts,
-    }
-    template = 'posts/user_profile.html'
-
-    return render(request, template, context)
+    def get_queryset(self):
+        self.group = get_object_or_404(Group, slug=self.kwargs['slug'])
+        return Post.objects.filter(group=self.group).order_by('-pub_date')
 
 
-def post_detail(request, post_id: int):
-    post = get_object_or_404(Post, id=post_id)
+class UserProfileView(LoginRequiredMixin, ListView):
+    paginate_by = 5
+    template_name = 'posts/user_profile.html'
 
-    context = {
-        'post': post,
-    }
-    template = 'posts/post_detail.html'
-
-    return render(request, template, context)
+    def get_queryset(self):
+        self.user = get_object_or_404(User, username=self.kwargs['username'])
+        return Post.objects.filter(author=self.user).order_by('-pub_date')
 
 
-@login_required
-def post_create(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        form.instance.author = request.user
-        form.instance.author_id = request.user.id
-
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('posts:user_profile', kwargs={'username': request.user}))
-    else:
-        form = PostForm()
-
-    context = {
-        'form': form,
-    }
-    template = 'posts/post_create.html'
-
-    return render(request, template, context)
+class PostDetailView(DetailView):
+    model = Post
+    pk_url_kwarg = 'post_id'
+    template_name = 'posts/post_detail.html'
 
 
-@login_required
-def post_edit(request, post_id: int):
-    post = get_object_or_404(Post, id=post_id)
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'posts/post_create.html'
 
-    if post.author != request.user:
-        return redirect(reverse('posts:post_detail', kwargs={'post_id': post_id}))
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
-    if request.method == 'POST':
-        form = PostForm(request.POST, instance=post)
+    def get_success_url(self):
+        return reverse_lazy('posts:user_profile', kwargs={'username': self.request.user})
 
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('posts:user_profile', kwargs={'username': request.user}))
-    else:
-        form = PostForm(instance=post)
 
-    context = {
-        'form': form,
-    }
-    template = 'posts/post_edit.html'
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'posts/post_update.html'
+    pk_url_kwarg = 'post_id'
 
-    return render(request, template, context)
+    def test_func(self):
+        post = self.get_object()
+        return post.author == self.request.user
+
+    def handle_no_permission(self):
+        # Redirect to the post detail view if the test_func is not passed
+        post_id = self.kwargs['post_id']
+        return redirect('posts:post_detail', post_id=post_id)
+
+    def get_success_url(self):
+        return reverse_lazy('posts:user_profile', kwargs={'username': self.request.user})

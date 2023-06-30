@@ -5,10 +5,10 @@ from . import views
 app_name = 'posts'
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('group/<slug:slug>/', views.group_detail, name='group_detail'),
-    path('profile/<str:username>/', views.user_profile, name='user_profile'),
-    path('posts/<int:post_id>/', views.post_detail, name='post_detail'),
-    path('posts/create/', views.post_create, name='post_create'),
-    path('posts/<int:post_id>/edit/', views.post_edit, name='post_edit'),
+    path('', views.PostListView.as_view(), name='index'),
+    path('group/<slug:slug>/', views.GroupDetailView.as_view(), name='group_detail'),
+    path('profile/<str:username>/', views.UserProfileView.as_view(), name='user_profile'),
+    path('posts/<int:post_id>/', views.PostDetailView.as_view(), name='post_detail'),
+    path('posts/create/', views.PostCreateView.as_view(), name='post_create'),
+    path('posts/<int:post_id>/update/', views.PostUpdateView.as_view(), name='post_update'),
 ]
