@@ -3,12 +3,12 @@
 {% set title = 'Edit post' %}
 
 {% block title %}
-  {{ title }} | YaTube
+  {{ title }} | {{ project_name }}
 {% endblock %}
 
 {% block content %}
   {% set card_header_text = title %}
-  {% set form_action_url = 'posts:post_edit' %}
+  {% set form_action_url = 'posts:post_update' %}
   {% set button_submit_text = 'Save' %}
 
   {% include 'posts/includes/post_form_template.html' %}

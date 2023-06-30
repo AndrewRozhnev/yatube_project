@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Latest posts | YaTube
+  Latest posts | {{ project_name }}
 {% endblock %}
 
 {% block content %}
   <div class="row">
     <div class="col">
       <h1 class="mb-5">Latest posts</h1>
-      {% for post in current_page_posts %}
+      {% for post in object_list %}
         <article>
           <div class="mb-3">
             <span class="h5">Author:</span>
@@ -41,7 +41,7 @@
 
               {% if post.author == user %}
                 <div>
-                  <a href="{{ url('posts:post_edit', post_id=post.id) }}" class="text-decoration-none">
+                  <a href="{{ url('posts:post_update', post_id=post.id) }}" class="text-decoration-none">
                     Edit
                   </a>
                 </div>
